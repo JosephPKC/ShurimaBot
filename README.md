@@ -20,3 +20,12 @@ Bot for discord that specializes in League of Legends.
 
 # Notes
 * main.py will be used to test. Will be removed once unit tests are set up.
+
+#Config
+Create a config.json in the root folder. Add the following
+
+{
+	"keys": {
+		"riot": "API KEY HERE"
+	}
+}
