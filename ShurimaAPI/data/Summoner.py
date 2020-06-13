@@ -2,6 +2,7 @@ import datetime
 from typing import Dict
 
 from . import DataBase
+from ..tools import Misc
 
 class Summoner(DataBase.DataBase):
     """ The data container for summoners (players).
@@ -16,7 +17,7 @@ class Summoner(DataBase.DataBase):
 
         self.account_id: str = src['accountId'] # Encrypted
         self.profile_icon_id: int = src['profileIconId']
-        self.revision_date: datetime.datetime = datetime.datetime.fromtimestamp(src['revisionDate']/1000.0) # May get a value error
+        self.revision_date: datetime.datetime = Misc.ms_to_datetime(src['revisionDate']) # May get a value error
         self.name: str = src['name']
         self.summoner_id: str = src['id']
         self.puu_id: str = src['puuid'] # Encrypted

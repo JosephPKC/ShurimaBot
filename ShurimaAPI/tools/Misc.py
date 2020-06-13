@@ -1,5 +1,5 @@
-import inspect, itertools, numbers, time
-from typing import Callable, Dict, Tuple
+import datetime, inspect, itertools, numbers, time
+from typing import Callable, Dict, List, Tuple
 
 from .. import config
 
@@ -20,7 +20,6 @@ def nonnegative(*params) -> Callable:
         return wrapper
     return inner
 
-
 def timer(func) -> Callable:
     def inner(*args, **kwargs) -> Callable:
         start: float = time.time()
@@ -32,3 +31,12 @@ def timer(func) -> Callable:
         
         return result
     return inner
+
+#region utility functions
+def str_to_bool(val: str) -> bool:
+    true_values: List = {"Y", "YES", "TRUE"}
+    return val.upper() in true_values
+
+def ms_to_datetime(val: str) -> datetime.datetime:
+    return datetime.datetime.fromtimestamp(val / 1000)
+#endregion

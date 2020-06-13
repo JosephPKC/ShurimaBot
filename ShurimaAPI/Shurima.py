@@ -3,7 +3,7 @@ from typing import Callable, Dict
 import requests
 
 from .tools import Cache
-from .endpoint import SummonerAPI
+from .endpoint import ChampionMasteryAPI, SummonerAPI
 
 class Shurima:
     """
@@ -19,6 +19,7 @@ class Shurima:
         self._cache: Cache.Cache = Cache.Cache()
 
         # Endpoints
+        self.ChampionMastery: ChampionMasteryAPI.ChampionMasteryAPI = ChampionMasteryAPI.ChampionMasteryAPI(self._cache, self.timeout, self._riot_key)
         self.Summoner: SummonerAPI.SummonerAPI = SummonerAPI.SummonerAPI(self._cache, self.timeout, self._riot_key)
 
     @property

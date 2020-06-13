@@ -5,7 +5,8 @@ from ..data import Summoner
 from ..tools import Cache, Enums
 
 class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
-    """ SummonerAPI is the Riot API endpoint to retrieve player information.
+    """ SummonerAPI handles Riot API endpoints to retrieve player information.
+        https://developer.riotgames.com/apis#summoner-v4
     """
     def __init__(self, cache: Cache.Cache, timeout: int, riot_key: str) -> None:
         """ Constructor for the Summoner API.
@@ -17,7 +18,7 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
         """
         super().__init__(cache, timeout, riot_key)
 
-    def by_name(self, summoner_name: str, region: Enums.LOLRegion, ttl: int = None) -> object:
+    def by_name(self, summoner_name: str, region: Enums.LOLRegion, ttl: int = None) -> Summoner.Summoner:
         """ Retrieves player information by name.
 
         Args:
@@ -26,12 +27,12 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
             ttl (int, optional): The time to live. Defaults to None.
 
         Returns:
-            object: The summoner data container.
+            Summoner.Summoner: The summoner data container.
         """
         method: str = f"summoner/v4/summoners/by-name/{summoner_name}"
         return self.__retrieve_summoner_data(method, region, ttl)
 
-    def by_account_id(self, account_id: str, region: Enums.LOLRegion, ttl: int = None) -> object:
+    def by_account_id(self, account_id: str, region: Enums.LOLRegion, ttl: int = None) -> Summoner.Summoner:
         """ Retrieves player information by account id.
 
         Args:
@@ -40,12 +41,12 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
             ttl (int, optional): The time to live. Defaults to None.
 
         Returns:
-            object: The summoner data container.
+            Summoner.Summoner: The summoner data container.
         """
         method: str = f"summoner/v4/summoners/by-account/{account_id}"
         return self.__retrieve_summoner_data(method, region, ttl)
 
-    def by_puu_id(self, puu_id: str, region: Enums.LOLRegion, ttl: int = None) -> object:
+    def by_puu_id(self, puu_id: str, region: Enums.LOLRegion, ttl: int = None) -> Summoner.Summoner:
         """ Retrieves player information by puu id.
 
         Args:
@@ -54,12 +55,12 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
             ttl (int, optional): The time to live. Defaults to None.
 
         Returns:
-            object: The summoner data container.
+            Summoner.Summoner: The summoner data container.
         """
         method: str = f"summoner/v4/summoners/by-puuid/{puu_id}"
         return self.__retrieve_summoner_data(method, region, ttl)
 
-    def by_summoner_id(self, summoner_id: str, region: Enums.LOLRegion, ttl: int = None) -> object:
+    def by_summoner_id(self, summoner_id: str, region: Enums.LOLRegion, ttl: int = None) -> Summoner.Summoner:
         """ Retrieves player information by summoner id.
 
         Args:
@@ -68,13 +69,13 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
             ttl (int, optional): The time to live. Defaults to None.
 
         Returns:
-            object: The summoner data container.
+            Summoner.Summoner: The summoner data container.
         """
         method: str = f"summoner/v4/summoners/{summoner_id}"
         return self.__retrieve_summoner_data(method, region, ttl)
 
     #region helpers
-    def __retrieve_summoner_data(self, method: str, region: Enums.LOLRegion, ttl: int) -> object:
+    def __retrieve_summoner_data(self, method: str, region: Enums.LOLRegion, ttl: int) -> Summoner.Summoner:
         url: str = super()._get_riot_api_url(region.value, method)
         builder: Callable = lambda r: Summoner.Summoner(r)
 
