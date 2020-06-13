@@ -24,7 +24,7 @@ class BaseAPI(ABC):
 
         super().__init__()
     
-    @Misc.timer(config.DEBUG)
+    @Misc.timer
     def retrieve_data(self, url: str, builder: Callable, ttl: int = None, params: Dict = None) -> object:
         """ Retrieves data based on url. It will check the cache first. Otherwise, it will attempt an API call.
 
@@ -61,8 +61,7 @@ class BaseAPI(ABC):
             print(e) # Just print for now
             raise e # Raise the exception to let caller know.
 
-    @Misc.timer(config.DEBUG)
-    
+    @Misc.timer
     def _send_request(self, url: str, params: Dict = None) -> requests.Response:
         if params is not None:
             # Clean up the params, and remove any empty values.

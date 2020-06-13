@@ -1,6 +1,8 @@
 import inspect, itertools, numbers, time
 from typing import Callable, Dict, Tuple
 
+from .. import config
+
 def nonnegative(*params) -> Callable:
     def inner(func) -> Callable:
         def wrapper(*args, **kwargs) -> Callable:
@@ -18,21 +20,15 @@ def nonnegative(*params) -> Callable:
         return wrapper
     return inner
 
-def timer(should_print: bool) -> Callable:
-    def inner(func) -> Callable:
-        def wrapper(*args, **kwargs) -> Callable:
-            start: float = time.time()
-            result: object = func(*args, **kwargs)
-            end: float = time.time()
 
-            if should_print:
-                print(f"{func.__name__}: {(end - start) * 1000} ms.")
-            
-            return result
-        return wrapper
+def timer(func) -> Callable:
+    def inner(*args, **kwargs) -> Callable:
+        start: float = time.time()
+        result: object = func(*args, **kwargs)
+        end: float = time.time()
+
+        if config.DEBUG:
+            print(f"{func.__name__}: {(end - start) * 1000} ms.")
+        
+        return result
     return inner
-    
-
-    
-    
-
