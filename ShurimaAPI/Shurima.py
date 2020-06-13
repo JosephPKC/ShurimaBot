@@ -2,7 +2,7 @@ from typing import Callable, Dict
 
 import requests
 
-from .tools import Cache, Logger
+from .tools import Cache
 from .endpoint import SummonerAPI
 
 class Shurima:
@@ -17,10 +17,9 @@ class Shurima:
 
         # Initialize subprocesses
         self._cache: Cache.Cache = Cache.Cache()
-        self._logger: Logger.Logger = Logger.Logger()
 
         # Endpoints
-        self.Summoner: SummonerAPI.SummonerAPI = SummonerAPI.SummonerAPI(self._cache, self._logger, self.timeout, self._riot_key)
+        self.Summoner: SummonerAPI.SummonerAPI = SummonerAPI.SummonerAPI(self._cache, self.timeout, self._riot_key)
 
     @property
     def riot_key(self) -> str:

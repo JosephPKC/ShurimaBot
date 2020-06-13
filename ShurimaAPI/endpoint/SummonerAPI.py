@@ -2,11 +2,11 @@ from typing import Callable
 
 from . import BaseRiotAPI
 from ..data import Summoner
-from ..tools import Cache, Enums, Logger
+from ..tools import Cache, Enums
 
 class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
-    def __init__(self, cache: Cache.Cache, logger: Logger.Logger, timeout: int, riot_key: str) -> None:
-        super().__init__(cache, logger, timeout, riot_key)
+    def __init__(self, cache: Cache.Cache, timeout: int, riot_key: str) -> None:
+        super().__init__(cache, timeout, riot_key)
 
     def by_name(self, summoner_name: str, region: Enums.LOLRegion, ttl: int = None) -> object:
         method: str = f"summoner/v4/summoners/by-name/{summoner_name}"

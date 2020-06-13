@@ -3,15 +3,14 @@ import requests
 from abc import ABC, abstractmethod
 from typing import Callable, Dict
 
-from ..tools import Cache, Logger
+from ..tools import Cache
 
 class BaseAPI(ABC):
-    def __init__(self, cache: Cache.Cache, logger: Logger.Logger, timeout: int, riot_key: str) -> None:
+    def __init__(self, cache: Cache.Cache, timeout: int, riot_key: str) -> None:
         self._riot_key: str = riot_key
 
         self.timeout: int = timeout
         self._cache: Cache.Cache = cache
-        self._logger: Logger.Logger = logger
 
         super().__init__()
 
@@ -34,11 +33,11 @@ class BaseAPI(ABC):
 
             if ttl is None:
                 ttl = self._get_default_ttl()
-                
+
             self._cache.add(url, result, ttl)
             return result
         except Exception as e:
-            self._logger.log(e)
+            print(e) # Just print for now
             raise e # Raise the exception to let caller know.
     
     def _send_request(self, url: str, params: Dict = None) -> requests.Response:

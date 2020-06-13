@@ -2,17 +2,11 @@ from abc import abstractmethod
 from typing import Callable, Dict
 
 from . import BaseAPI
-from ..tools import Cache, Logger
+from ..tools import Cache
 
 class BaseRiotAPI(BaseAPI.BaseAPI):
-    def __init__(self, cache: Cache.Cache, logger: Logger.Logger, timeout: int, riot_key: str) -> None:
-        self._riot_key: str = riot_key
-
-        self.timeout: int = timeout
-        self._cache: Cache.Cache = cache
-        self._logger: Logger.Logger = logger
-
-        super().__init__(cache, logger, timeout, riot_key)
+    def __init__(self, cache: Cache.Cache, timeout: int, riot_key: str) -> None:
+        super().__init__(cache, timeout, riot_key)
 
     def _get_extra_params(self) -> Dict:
         params: Dict = dict()
@@ -35,4 +29,4 @@ class BaseRiotAPI(BaseAPI.BaseAPI):
 
     @abstractmethod
     def _get_default_ttl(self) -> int:
-        return 60 # Default 1 min
+        return None
