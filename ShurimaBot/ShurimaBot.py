@@ -1,2 +1,0 @@
-
-# The main bot file.
