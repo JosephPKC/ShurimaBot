@@ -1,6 +1,6 @@
 import requests
 
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import Callable, Dict
 
 from ..tools import Cache, Logger
@@ -15,7 +15,7 @@ class BaseAPI(ABC):
 
         super().__init__()
 
-    def retrieve_data(self, url: str, ttl: int, builder: Callable, params: Dict = None) -> object:
+    def retrieve_data(self, url: str, builder: Callable, ttl: int = None, params: Dict = None) -> object:
         """
         Helper function that will attempt to retrieve information.
         """
@@ -31,19 +31,23 @@ class BaseAPI(ABC):
         try:
             response: requests.Response = self._send_request(url, params)
             result = builder(response.json())
+
+            if ttl is None:
+                ttl = self._get_default_ttl()
+                
             self._cache.add(url, result, ttl)
             return result
         except Exception as e:
             self._logger.log(e)
             raise e # Raise the exception to let caller know.
-
+    
     def _send_request(self, url: str, params: Dict = None) -> requests.Response:
         if params is not None:
             # Clean up the params, and remove any empty values.
             params: Dict = {k: v for k, v in params.items() if v is not None}
 
-        extra_params: Dict = self.__get_riot_api_params()
-        headers: Dict = self.__get_riot_api_headers()
+        extra_params: Dict = self._get_extra_params()
+        headers: Dict = self._get_headers()
         response: requests.Response = requests.get(url, params, headers=headers, **extra_params)
 
         # 200 - OK
@@ -52,24 +56,14 @@ class BaseAPI(ABC):
 
         return response
 
-    #region API specific params and headers
-    def __get_riot_api_params(self) -> Dict:
-        params: Dict = dict()
+    @abstractmethod
+    def _get_extra_params(self) -> Dict:
+        return None
 
-        # Add params here
-        if self.timeout is not None:
-            params['timeout'] = self.timeout
+    @abstractmethod
+    def _get_headers(self) -> Dict:
+        return None
 
-        return params
-
-    def __get_riot_api_headers(self) -> Dict:
-        headers: Dict = dict()
-
-        # Add headers here
-        headers['X-Riot-Token'] = self._riot_key
-
-        return headers
-
-    def _get_riot_api_url(self, prefix: str, method_url: str) -> str:
-        return f"https://{prefix}.api.riotgames.com/lol/{method_url}"
-    #endregion
+    @abstractmethod
+    def _get_default_ttl(self) -> int:
+        return None

@@ -7,6 +7,7 @@ import json
 import requests
 
 from ShurimaAPI import Shurima
+from ShurimaAPI.data import Summoner
 from ShurimaAPI.tools import Enums
 # Get the riot api key
 global riot_api_key
@@ -23,5 +24,7 @@ with open("config.json") as f:
 print("riot api: ", riot_api_key)
 
 api = Shurima.Shurima(300, riot_api_key)
-result = api.Summoner.by_name("AtuhorsNosePKC", Enums.LOLRegion.NA)
+result: Summoner.Summoner = api.Summoner.by_name("AtuhorsNosePKC", Enums.LOLRegion.NA)
+print(result)
+result = api.Summoner.by_account_id(result.account_id, Enums.LOLRegion.NA)
 print(result)
