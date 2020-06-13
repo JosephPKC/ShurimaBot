@@ -3,9 +3,10 @@ import requests
 from abc import ABC, abstractmethod
 from typing import Callable, Dict
 
-from ..tools import Cache
+from ..tools import Cache, Misc
 
 class BaseAPI(ABC):
+    @Misc.nonnegative("timeout")
     def __init__(self, cache: Cache.Cache, timeout: int, riot_key: str) -> None:
         self._riot_key: str = riot_key
 
@@ -13,7 +14,9 @@ class BaseAPI(ABC):
         self._cache: Cache.Cache = cache
 
         super().__init__()
-
+    
+    @Misc.nonnegative("ttl")
+    @Misc.timer(True)
     def retrieve_data(self, url: str, builder: Callable, ttl: int = None, params: Dict = None) -> object:
         """
         Helper function that will attempt to retrieve information.
@@ -40,6 +43,7 @@ class BaseAPI(ABC):
             print(e) # Just print for now
             raise e # Raise the exception to let caller know.
     
+    @Misc.timer(True)
     def _send_request(self, url: str, params: Dict = None) -> requests.Response:
         if params is not None:
             # Clean up the params, and remove any empty values.

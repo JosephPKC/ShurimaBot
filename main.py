@@ -23,7 +23,7 @@ with open("config.json") as f:
 
 print("riot api: ", riot_api_key)
 
-api = Shurima.Shurima(300, riot_api_key)
+api = Shurima.Shurima(30, riot_api_key)
 result: Summoner.Summoner = api.Summoner.by_name("AtuhorsNosePKC", Enums.LOLRegion.NA)
 print(result)
 result = api.Summoner.by_account_id(result.account_id, Enums.LOLRegion.NA)

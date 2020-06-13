@@ -16,6 +16,7 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
         method: str = f"summoner/v4/summoners/by-account/{account_id}"
         return self.__retrieve_summoner_data(method, region, ttl)
 
+    #region helpers
     def __retrieve_summoner_data(self, method: str, region: Enums.LOLRegion, ttl: int) -> object:
         url: str = super()._get_riot_api_url(region.value, method)
         builder: Callable = lambda r: Summoner.Summoner(r)
@@ -24,3 +25,4 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
     
     def _get_default_ttl(self) -> int:
         return 600 # Default to 10 minutes
+    #endregion
