@@ -14,5 +14,9 @@ Bot for discord that specializes in League of Legends.
 * Set up latest version of python with visual studio 2019. Use the python integration.
 * Set up pip env, and use that to install required packages.
 
+# Pipenv
+* Install requests.
+* Install pytest with --dev.
+
 # Notes
 * main.py will be used to test. Will be removed once unit tests are set up.
