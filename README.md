@@ -8,3 +8,8 @@ Bot for discord that specializes in League of Legends.
 * unittest or pytest for unit testing.
 * XML for settings file.
 * Flask for web site.
+
+
+# Setup
+* Set up latest version of python with visual studio 2019. Use the python integration.
+* Set up pip env, and use that to install required packages.
