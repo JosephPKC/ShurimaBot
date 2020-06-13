@@ -3,11 +3,20 @@ import requests
 from abc import ABC, abstractmethod
 from typing import Callable, Dict
 
+from .. import config
 from ..tools import Cache, Misc
 
 class BaseAPI(ABC):
-    @Misc.nonnegative("timeout")
+    """ BaseAPI is the base class for all API endpoints.
+    """
     def __init__(self, cache: Cache.Cache, timeout: int, riot_key: str) -> None:
+        """ Constructor for abstract BaseAPI.
+
+        Args:
+            cache (Cache.Cache): The cache manager.
+            timeout (int): The amount of seconds to wait after sending a request before timing out.
+            riot_key (str): The API key for riot's API.
+        """
         self._riot_key: str = riot_key
 
         self.timeout: int = timeout
@@ -15,13 +24,22 @@ class BaseAPI(ABC):
 
         super().__init__()
     
-    @Misc.nonnegative("ttl")
-    @Misc.timer(True)
+    @Misc.timer(config.DEBUG)
     def retrieve_data(self, url: str, builder: Callable, ttl: int = None, params: Dict = None) -> object:
-        """
-        Helper function that will attempt to retrieve information.
-        """
+        """ Retrieves data based on url. It will check the cache first. Otherwise, it will attempt an API call.
 
+        Args:
+            url (str): The url for the API endpoint. This also acts as the key for the cache.
+            builder (Callable): The build function for the data container. This will determine how we build the resulting data container.
+            ttl (int, optional): [description]. The time to live for the data when caching. Defaults to None.
+            params (Dict, optional): [description]. The parameters for the API request. Defaults to None.
+
+        Raises:
+            e: General exception that can occur when retrieving from the API endpoint.
+
+        Returns:
+            object: The resulting data container that contains all of the info from the API endpoint or cache.
+        """
         # Check cache first.
         request_url: str = requests.Request("GET", url, params=params).prepare().url
         result: object = self._cache.search(request_url)
@@ -42,8 +60,9 @@ class BaseAPI(ABC):
         except Exception as e:
             print(e) # Just print for now
             raise e # Raise the exception to let caller know.
+
+    @Misc.timer(config.DEBUG)
     
-    @Misc.timer(True)
     def _send_request(self, url: str, params: Dict = None) -> requests.Response:
         if params is not None:
             # Clean up the params, and remove any empty values.

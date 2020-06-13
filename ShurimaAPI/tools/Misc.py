@@ -26,7 +26,7 @@ def timer(should_print: bool) -> Callable:
             end: float = time.time()
 
             if should_print:
-                print(f"{func.__name__}: {end - start} ms.")
+                print(f"{func.__name__}: {(end - start) * 1000} ms.")
             
             return result
         return wrapper
