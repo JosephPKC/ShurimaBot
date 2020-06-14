@@ -54,7 +54,7 @@ class ChampionMasteryAPI(BaseRiotAPI.BaseRiotAPI):
 
         return super().retrieve_data(url, builder, ttl=ttl)
 
-    def total_by_summoner(self, summoner_id: str, region: Enums.LOLRegion, ttl: int = None) -> int:
+    def total_by_summoner_id(self, summoner_id: str, region: Enums.LOLRegion, ttl: int = None) -> int:
         """ Retrieves the total champion mastery for the player.
 
         Args:

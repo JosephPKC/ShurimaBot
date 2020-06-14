@@ -1,5 +1,5 @@
 import datetime
-from typing import Dict
+from typing import Dict, List
 
 from . import DataBase
 from ..tools import Misc
@@ -28,7 +28,7 @@ class ChampionMastery(DataBase.DataBase):
 class ChampionMasteryList(DataBase.DataBase):
     """ The data container for the champion mastery list.
     """
-    def __init__(self, src: Dict) -> None:
+    def __init__(self, src: List) -> None:
         """ Constructor for the Champion Mastery List data container.
 
         Args:
