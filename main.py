@@ -28,7 +28,7 @@ api = Shurima.Shurima(30, riot_api_key)
 
 
 print("----- TESTING SUMMONER API -----")
-result: Summoner.Summoner = api.Summoner.by_name("AtuhorsNosePKC", Enums.LOLRegion.NA)
+result: Summoner.Summoner = api.Summoner.by_name("GetOut", Enums.LOLRegion.NA)
 print(result)
 result = api.Summoner.by_account_id(result.account_id, Enums.LOLRegion.NA)
 print(result)
@@ -70,3 +70,15 @@ result = api.ChampionMastery.by_summoner_id_by_champion_id(summoner_id, 1, Enums
 print(result)
 result = api.ChampionMastery.total_by_summoner_id(summoner_id, Enums.LOLRegion.NA)
 print(result)
+
+# print("----- TESTING CLASH API -----")
+# clashers = api.Clash.by_summoner_id(summoner_id, Enums.LOLRegion.NA)
+# print(result)
+# result = api.Clash.by_team_id(list(clashers.clash_players)[0].team_id, Enums.LOLRegion.NA)
+# print(result)
+
+# print("Second time -----")
+# clashers = api.Clash.by_summoner_id(summoner_id, Enums.LOLRegion.NA)
+# print(result)
+# result = api.Clash.by_team_id(list(clashers.clash_players)[0].team_id, Enums.LOLRegion.NA)
+# print(result)

@@ -32,8 +32,8 @@ class ChampionMasteryList(DataBase.DataBase):
         """ Constructor for the Champion Mastery List data container.
 
         Args:
-            src (Dict): The source JSON from which the data container retrieves data from.
+            src (List): The source JSON from which the data container retrieves data from.
         """
         super().__init__(src)
 
-        self.champion_masteries: Dict[ChampionMastery] = {s['championId']: ChampionMastery(s) for s in src} # Sends a list of champion mastery srcs.
+        self.champion_masteries: Dict[str, ChampionMastery] = {s['championId']: ChampionMastery(s) for s in src} # Sends a list of champion mastery srcs.
