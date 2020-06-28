@@ -86,7 +86,7 @@ class ClashAPI(BaseRiotAPI.BaseRiotAPI):
 
         return super().retrieve_data(url, builder, ttl=ttl)
 
-     def tournament_by_tournament_id(self, tournament_id: str, region: Enums.LOLRegion, ttl: int = None) -> Clash.ClashTournament:
+    def tournament_by_tournament_id(self, tournament_id: str, region: Enums.LOLRegion, ttl: int = None) -> Clash.ClashTournament:
         """ Retrieves the tournament based on tournament id.
 
         Args:
