@@ -2,7 +2,8 @@ from typing import Dict
 
 from . import common
 from ..endpoint import ChampionMasteryAPI, SummonerAPI
-from ..tools import Cache, Enums
+from ..tools import Cache
+from ..tools.Enums import LOL
 
 # Note: BaseAPI and BaseRiotAPI are not completely tested as they are abstract.
 

@@ -2,7 +2,8 @@ from typing import Callable
 
 from . import BaseRiotAPI
 from ..data import Clash
-from ..tools import Cache, Enums
+from ..tools import Cache
+from ..tools.Enums import LOL
 
 class ClashAPI(BaseRiotAPI.BaseRiotAPI):
     """ ClashAPI handles the Riot API endpoints to retrieve champion masteries.
@@ -19,7 +20,7 @@ class ClashAPI(BaseRiotAPI.BaseRiotAPI):
         """
         super().__init__(cache, timeout, riot_key)
 
-    def by_summoner_id(self, summoner_id: str, region: Enums.LOLRegion, ttl: int = None) -> Clash.ClashPlayerList:
+    def by_summoner_id(self, summoner_id: str, region: LOL.Region, ttl: int = None) -> Clash.ClashPlayerList:
         """ Retrieves the list of clash player infos based on summoner id.
 
         Args:
@@ -36,7 +37,7 @@ class ClashAPI(BaseRiotAPI.BaseRiotAPI):
 
         return super().retrieve_data(url, builder, ttl=ttl)
 
-    def by_team_id(self, team_id: str, region: Enums.LOLRegion, ttl: int = None) -> Clash.ClashTeam:
+    def by_team_id(self, team_id: str, region: LOL.Region, ttl: int = None) -> Clash.ClashTeam:
         """ Retrieves the clash team based on team id.
 
         Args:
@@ -53,7 +54,7 @@ class ClashAPI(BaseRiotAPI.BaseRiotAPI):
 
         return super().retrieve_data(url, builder, ttl=ttl)
 
-    def all_tournaments(self, region: Enums.LOLRegion, ttl: int = None) -> Clash.ClashTournamentList:
+    def all_tournaments(self, region: LOL.Region, ttl: int = None) -> Clash.ClashTournamentList:
         """ Retrieves all active clash tournaments.
 
         Args:
@@ -69,7 +70,7 @@ class ClashAPI(BaseRiotAPI.BaseRiotAPI):
 
         return super().retrieve_data(url, builder, ttl=ttl)
 
-    def tournament_by_team_id(self, team_id: str, region: Enums.LOLRegion, ttl: int = None) -> Clash.ClashTournament:
+    def tournament_by_team_id(self, team_id: str, region: LOL.Region, ttl: int = None) -> Clash.ClashTournament:
         """ Retrieves the tournament based on team id.
 
         Args:
@@ -86,7 +87,7 @@ class ClashAPI(BaseRiotAPI.BaseRiotAPI):
 
         return super().retrieve_data(url, builder, ttl=ttl)
 
-    def tournament_by_tournament_id(self, tournament_id: str, region: Enums.LOLRegion, ttl: int = None) -> Clash.ClashTournament:
+    def tournament_by_tournament_id(self, tournament_id: str, region: LOL.Region, ttl: int = None) -> Clash.ClashTournament:
         """ Retrieves the tournament based on tournament id.
 
         Args:

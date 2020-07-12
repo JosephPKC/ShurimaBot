@@ -2,7 +2,8 @@ from typing import Callable
 
 from . import BaseRiotAPI
 from ..data import Summoner
-from ..tools import Cache, Enums
+from ..tools import Cache
+from ..tools.Enums import LOL
 
 class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
     """ SummonerAPI handles Riot API endpoints to retrieve player information.
@@ -18,7 +19,7 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
         """
         super().__init__(cache, timeout, riot_key)
 
-    def by_name(self, summoner_name: str, region: Enums.LOLRegion, ttl: int = None) -> Summoner.Summoner:
+    def by_name(self, summoner_name: str, region: LOL.Region, ttl: int = None) -> Summoner.Summoner:
         """ Retrieves player information by name.
 
         Args:
@@ -32,7 +33,7 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
         method: str = f"summoner/v4/summoners/by-name/{summoner_name}"
         return self.__retrieve_summoner_data(method, region, ttl)
 
-    def by_account_id(self, account_id: str, region: Enums.LOLRegion, ttl: int = None) -> Summoner.Summoner:
+    def by_account_id(self, account_id: str, region: LOL.Region, ttl: int = None) -> Summoner.Summoner:
         """ Retrieves player information by account id.
 
         Args:
@@ -46,7 +47,7 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
         method: str = f"summoner/v4/summoners/by-account/{account_id}"
         return self.__retrieve_summoner_data(method, region, ttl)
 
-    def by_puu_id(self, puu_id: str, region: Enums.LOLRegion, ttl: int = None) -> Summoner.Summoner:
+    def by_puu_id(self, puu_id: str, region: LOL.Region, ttl: int = None) -> Summoner.Summoner:
         """ Retrieves player information by puu id.
 
         Args:
@@ -60,7 +61,7 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
         method: str = f"summoner/v4/summoners/by-puuid/{puu_id}"
         return self.__retrieve_summoner_data(method, region, ttl)
 
-    def by_summoner_id(self, summoner_id: str, region: Enums.LOLRegion, ttl: int = None) -> Summoner.Summoner:
+    def by_summoner_id(self, summoner_id: str, region: LOL.Region, ttl: int = None) -> Summoner.Summoner:
         """ Retrieves player information by summoner id.
 
         Args:
@@ -75,7 +76,7 @@ class SummonerAPI(BaseRiotAPI.BaseRiotAPI):
         return self.__retrieve_summoner_data(method, region, ttl)
 
     #region helpers
-    def __retrieve_summoner_data(self, method: str, region: Enums.LOLRegion, ttl: int) -> Summoner.Summoner:
+    def __retrieve_summoner_data(self, method: str, region: LOL.Region, ttl: int) -> Summoner.Summoner:
         url: str = super()._get_riot_api_url(region.value, method)
         builder: Callable = lambda r: Summoner.Summoner(r)
 

@@ -2,7 +2,8 @@ import datetime
 from typing import Dict, List
 
 from . import DataBase
-from ..tools import Enums, Misc
+from ..tools import Misc
+from ..tools.Enums import LOL
 
 class ClashPlayer(DataBase.DataBase):
     def __init__(self, src: Dict, team_id: str = "") -> None:
@@ -16,8 +17,8 @@ class ClashPlayer(DataBase.DataBase):
 
         self.summoner_id: str = src['summonerId']
         self.team_id: str = team_id if team_id != "" else src['teamId']
-        self.position: Enums.LOLClashPosition = Enums.LOLClashPosition[src['position']]
-        self.role: Enums.LOLClashRole = Enums.LOLClashRole[src['role']]
+        self.position: LOL.ClashPosition = LOL.ClashPosition[src['position']]
+        self.role: LOL.ClashRole = LOL.ClashRole[src['role']]
 
 class ClashPlayerList(DataBase.DataBase):
     def __init__(self, src: List, is_all_same_players: bool, team_id: str = "") -> None:

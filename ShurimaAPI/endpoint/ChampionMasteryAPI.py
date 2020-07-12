@@ -2,7 +2,8 @@ from typing import Callable
 
 from . import BaseRiotAPI
 from ..data import ChampionMastery
-from ..tools import Cache, Enums
+from ..tools import Cache
+from ..tools.Enums import LOL
 
 class ChampionMasteryAPI(BaseRiotAPI.BaseRiotAPI):
     """ ChampionMasteryAPI handles the Riot API endpoints to retrieve champion masteries.
@@ -19,7 +20,7 @@ class ChampionMasteryAPI(BaseRiotAPI.BaseRiotAPI):
         """
         super().__init__(cache, timeout, riot_key)
 
-    def by_summoner_id(self, summoner_id: str, region: Enums.LOLRegion, ttl: int = None) -> ChampionMastery.ChampionMasteryList:
+    def by_summoner_id(self, summoner_id: str, region: LOL.Region, ttl: int = None) -> ChampionMastery.ChampionMasteryList:
         """ Retrieves the list of champion masteries for the player.
 
         Args:
@@ -36,7 +37,7 @@ class ChampionMasteryAPI(BaseRiotAPI.BaseRiotAPI):
 
         return super().retrieve_data(url, builder, ttl=ttl)
 
-    def by_summoner_id_by_champion_id(self, summoner_id: str, champion_id: int, region: Enums.LOLRegion, ttl: int = None) -> ChampionMastery.ChampionMastery:
+    def by_summoner_id_by_champion_id(self, summoner_id: str, champion_id: int, region: LOL.Region, ttl: int = None) -> ChampionMastery.ChampionMastery:
         """ Retrieves the champion mastery for the specific champion for the player.
 
         Args:
@@ -54,7 +55,7 @@ class ChampionMasteryAPI(BaseRiotAPI.BaseRiotAPI):
 
         return super().retrieve_data(url, builder, ttl=ttl)
 
-    def total_by_summoner_id(self, summoner_id: str, region: Enums.LOLRegion, ttl: int = None) -> int:
+    def total_by_summoner_id(self, summoner_id: str, region: LOL.Region, ttl: int = None) -> int:
         """ Retrieves the total champion mastery for the player.
 
         Args:
